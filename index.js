@@ -7,8 +7,6 @@ var state = {
 
 var addItem = function(state, item) {
 	state.items.push(item);
-	console.log(item);
-
 };
 
 //var checkedItem = function() {};
@@ -20,7 +18,19 @@ var addItem = function(state, item) {
 
 var renderList = function(state, element) {
 	var itemsHTML = state.items.map(function(item) {
-		return '<li>' + item + '</li>';
+		return  "<li>"  +
+					"<span class='shopping-item'>" + item + "</span>" +
+        			"<div class='shopping-item-controls'>" +
+				          "<button class='shopping-item-toggle'>" +
+				            "<span class='button-label'>" + "check" + "</span>" +
+	          				"</button>" + 
+	         			"<button class='shopping-item-delete'>" + 
+	            			"<span class='button-label'>" + "delete" + "</span>" +
+				          			"</button>" +
+			        "</div>" +
+      			"</li>"
+
+		//'<li>' + "item" + '</li>';
 	});
 	element.html(itemsHTML)
 
@@ -34,8 +44,7 @@ $('#js-shopping-list-form').submit(function(event) {
 	event.preventDefault();
 	addItem(state, $("#shopping-list-entry").val());
 	renderList(state, $('.shopping-list'));
-	console.log(addItem);
-	console.log("hello")
+	
 });
 
 
