@@ -1,16 +1,39 @@
 //	1) Single State object: 
 var state = {
 	items: []
-}
+}	
 
 //	2) functions that modify state: 
+var eventListener = function() {
+	$(".shopping-item-delete").on("click", function(evt) {
+	console.log("fired inside delete button listener");
+	deletedItem($(this).closest('li').attr("id"));
+	console.log($(this).parent("li").attr("id"));
+	$(this).closest('li').remove();
+});
+
+$(".shopping-item-toggle").on("click", function(evt) {
+	console.log("fired inside check button listener");
+	$(this).parentsUntil($('ul')).toggleClass("shopping-item__checked");
+});
+};
 
 var addItem = function(state, item) {
 	state.items.push(item);
+	
 };
 
 //var checkedItem = function() {};
-//var deletedItem = function() {};
+var deletedItem = function(item) {
+	var currentItem = state.items.indexOf(item);
+	//delete this item from the array by its index
+	state.items.splice(currentItem, 1);
+	console.log(state.items);
+	console.log(currentItem);
+	console.log(item);
+};
+
+
 
 // 3) Functions that render state:
 // The render functions should all take two arguments: 
@@ -18,7 +41,7 @@ var addItem = function(state, item) {
 
 var renderList = function(state, element) {
 	var itemsHTML = state.items.map(function(item) {
-		return  "<li>"  +
+		return  "<li id='" + item + "'>"  +
 					"<span class='shopping-item'>" + item + "</span>" +
         			"<div class='shopping-item-controls'>" +
 				          "<button class='shopping-item-toggle'>" +
@@ -30,8 +53,8 @@ var renderList = function(state, element) {
 			        "</div>" +
       			"</li>"
 	});
-	element.html(itemsHTML)
-
+	element.html(itemsHTML);
+	eventListener();
 };
 
 // 4) Event listeners
@@ -43,13 +66,7 @@ $('#js-shopping-list-form').submit(function(event) {
 	renderList(state, $('.shopping-list'));
 });
 
-$("body").on("click", ".shopping-item-delete", function(evt) {
-	console.log("fired inside delete button listener");
-	$(this).parentsUntil($('ul')).detach();
-});
 
-$("body").on("click",".shopping-item-toggle", function(evt) {
-	console.log("fired inside check button listener");
-	$(this).parentsUntil($('ul')).toggleClass("shopping-item__checked");
-});
+
+
 
