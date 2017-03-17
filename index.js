@@ -6,16 +6,16 @@ var state = {
 //	2) functions that modify state: 
 var eventListener = function() {
 	$(".shopping-item-delete").on("click", function(evt) {
-	//console.log("fired inside delete button listener");
-	deletedItem($(this).closest('li').attr("id"));
-	//console.log($(this).parent("li").attr("id"));
-	$(this).closest('li').remove();
-});
+		//console.log("fired inside delete button listener");
+		deletedItem($(this).closest('li').attr("id"));
+		//console.log($(this).parent("li").attr("id"));
+		$(this).closest('li').remove();
+	});
 
-$(".shopping-item-toggle").on("click", function(evt) {
-	//console.log("fired inside check button listener");
-	$(this).parentsUntil($('ul')).toggleClass("shopping-item__checked");
-});
+	$(".shopping-item-toggle").on("click", function(evt) {
+		//console.log("fired inside check button listener");
+		$(this).parentsUntil($('ul')).toggleClass("shopping-item__checked");
+	});
 };
 
 var addItem = function(state, item) {
@@ -40,7 +40,7 @@ var deletedItem = function(item) {
 var renderList = function(state, element) {
 	var itemsHTML = state.items.map(function(item) {			
 		return  "<li id='" + item + "'>"  +
-						"<span class='shopping-item'>" + item + "</span> <div class='shopping-item-controls'><button class='shopping-item-toggle'> <span class='button-label'> 'check' </span> </button><button class='shopping-item-delete'><span class='button-label'> 'delete' </span></button></div></li>"
+						"<span class='shopping-item'>" + item + "</span> <div class='shopping-item-controls'><button class='shopping-item-toggle'> <span class='button-label'> check </span> </button><button class='shopping-item-delete'><span class='button-label'> delete </span></button></div></li>"
 	});
 	element.html(itemsHTML);
 	eventListener();
